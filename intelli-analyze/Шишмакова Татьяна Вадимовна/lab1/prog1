@@ -1,0 +1,50 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+
+data = pd.read_csv('./flavors_of_cacao.csv', header=0)
+broad_or = data.sort_values(by='Broad Bean Origin').groupby("Broad Bean Origin")
+
+plt.figure(figsize=(50,50))
+plt.subplot(5, 2, 1)
+plt.plot(broad_or['Rating'].var())
+plt.axhline(data['Rating'].var(), color='g')
+plt.gca().set_xticklabels(broad_or['Broad Bean Origin'].min(), rotation=90, horizontalalignment='center', fontsize=8)
+plt.title("Дисперсия", fontsize=20)
+plt.show()
+
+plt.figure(figsize=(50,50))
+plt.subplot(5, 2, 1)
+plt.plot(broad_or['Rating'].mean())
+plt.axhline(data['Rating'].mean(), color='g')
+plt.gca().set_xticklabels(broad_or['Broad Bean Origin'].min(), rotation=90, horizontalalignment='center', fontsize=8)
+plt.title("Среднее значение", fontsize=20)
+plt.show()
+
+plt.figure(figsize=(50,50))
+plt.subplot(5, 2, 1)
+plt.plot(broad_or['Rating'].median())
+plt.axhline(data['Rating'].median(), color='g')
+plt.gca().set_xticklabels(broad_or['Broad Bean Origin'].min(), rotation=90, horizontalalignment='center', fontsize=8)
+plt.title("Медианное значение", fontsize=20)
+plt.show()
+
+plt.figure(figsize=(50,50))
+plt.subplot(5, 2, 1)
+plt.plot(broad_or['Rating'].std())
+plt.axhline(data['Rating'].std(), color='g')
+plt.gca().set_xticklabels(broad_or['Broad Bean Origin'].min(), rotation=90, horizontalalignment='center', fontsize=8)
+plt.title("СКО", fontsize=20)
+plt.show()
+
+cac_per = data.sort_values(by='Cocoa Percent').groupby("Cocoa Percent")
+
+plt.figure(figsize=(50,50))
+plt.subplot(5, 2, 1)
+plt.plot(cac_per['Rating'].mean())
+plt.plot(cac_per['Rating'].var()) #дисперсия
+plt.plot(cac_per['Rating'].max()) 
+plt.plot(cac_per['Rating'].min()) 
+plt.gca().set_xticklabels(cac_per['Cocoa Percent'].min(), rotation=90, horizontalalignment='center', fontsize=8)
+plt.legend(['Среднее значение','Дисперсия','Максимум','Минимум'])
+plt.title("Содержание какао в процентах", fontsize=20)
+plt.show()
